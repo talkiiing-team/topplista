@@ -1,4 +1,5 @@
 import express from 'express';
+import api from './api';
 
 const app = express();
 
@@ -7,5 +8,7 @@ app.get('/', (req, res) => {
     hello: 'world',
   });
 });
+
+app.use('/api', api);
 
 export default app;
