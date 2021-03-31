@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint src/**/*.ts",
-    "start": "nodemon --watch 'src/**/*.ts' --exec 'npm run lint && ts-node -r dotenv/config src/index.ts'",
+    "start": "nodemon --watch 'src/**/*.ts' --ext 'ts,js,json' --exec 'npm run lint && ts-node -r dotenv/config src/index.ts'",
     "build": "tsc --project ./"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/cookie": "^0.4.0",
+    "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.5",
+    "cookie": "^0.4.1",
     "express": "^4.17.1",
     "node-fetch": "^2.6.1"
   },

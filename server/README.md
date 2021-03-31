@@ -29,3 +29,33 @@ Returns:
   }
 ]
 ```
+
+### GET `/api/game/:timestamp`
+* `timestamp`: ISO Date, e.g: `2020-11-11T12:32:22.927Z`
+
+Retuns:
+
+```json
+{
+  "players": {
+    "white": {
+      "name": "name",
+      "rank": 39
+    },
+    "black": {
+      "name": "name",
+      "rank": 39
+    }
+  },
+  "moves": [
+    {
+      "side": "white | black",
+      "id": 5,
+      "location": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ]
+}
+```
