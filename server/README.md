@@ -18,6 +18,8 @@ Returns:
 ### GET `/api/leaderboard`
 Just get the TOP-100
 
+Optionally, you can pass `?extended` to get users with two last games. **BUT DON'T DO THIS AS IT IS A FREAKING SLOW BULLSHIT.**
+
 Returns:
 
 ```json
@@ -59,3 +61,7 @@ Retuns:
   ]
 }
 ```
+
+### GET `/api/games/:name`
+
+Get the first two games of the given user. Optionally, you can pass `?extended` to get all of them.
