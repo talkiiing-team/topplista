@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
-import BPromise from 'bluebird';
-import kgsClient from '../kgsClient';
 import { Game } from '../kgsClient.d';
+import client from '../kgs/client';
 
 interface Place {
   place: number;
@@ -31,15 +30,25 @@ const leaderboard = async (req: Request, res: Response<Place[]>) => {
   });
 
   if (extended) {
-    const dataDetailed = await BPromise.map(data, async (v) => {
+    const dataDetailed = await Promise.all(data.map(async (v) => {
       const { name } = v;
-      const games = await kgsClient.getGames(name);
-      games.sort(({ timestamp: date1 }, { timestamp: date2 }) => (date1 < date2 ? 1 : -1));
-      return {
-        ...v,
-        games: games.slice(0, 2),
-      };
-    }, { concurrency: 1 });
+      console.log('attempting to get', name);
+      try {
+        const id = await client.getGames(name);
+
+        const games = await client.gamesDeliver.get(id);
+        console.log('got', name);
+        // const games = await kgsClient.getGames(name);
+        games.sort(({ timestamp: date1 }, { timestamp: date2 }) => (date1 < date2 ? 1 : -1));
+        return {
+          ...v,
+          games: games.slice(0, 2),
+        };
+      } catch (e) {
+        // console.log(e);
+        return v;
+      }
+    }));
 
     res.json(dataDetailed);
     return;

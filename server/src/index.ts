@@ -1,8 +1,8 @@
 import app from './app';
+import client from './kgs/client';
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log('Listening on port', PORT);
+client.listen(() => {
+  app.listen(PORT, () => console.log('Listening on', PORT));
 });
