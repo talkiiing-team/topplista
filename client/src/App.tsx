@@ -6,6 +6,7 @@ import {
   Link,
   Redirect,
 } from 'react-router-dom'
+import styles from './App.module.scss'
 import Leaderboard from './components/Leaderboard/Leaderboard'
 import KGSClient from './core/kgs/client'
 import Games from './components/Games/Games'
@@ -15,7 +16,7 @@ function App() {
   const [client, setClient] = useState<KGSClient>(new KGSClient())
 
   return (
-    <div className='App container'>
+    <div className={styles.app}>
       <Router>
         <div>
           <nav>

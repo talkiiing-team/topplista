@@ -1,29 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Card.module.scss'
 import { Game } from '../../../core/kgs/kgsClient'
-import KGSClient, { IPlace } from '../../../core/kgs/client'
+import { IPlace } from '../../../core/kgs/client'
 import classNames from 'classnames'
+import Loader from '../../Loader/Loader'
 
 export interface ICardProps {
   player: IPlace
-  client: KGSClient
+  fetch: (name: string) => Promise<Game[]>
 }
 
 const Card = (props: ICardProps) => {
-  const [games, setGames] = useState<Game[]>([])
+  const [games, setGames] = useState<Game[]>()
   const [isExpanded, setExpanded] = useState(false)
 
   useEffect(() => {
-    if (games.length && props.client) fetch()
-  }, [props.player.name, props.client])
+    if (games) props.fetch(props.player.name).then(setGames)
+  }, [props.player.name])
 
-  const fetch = () => {
-    console.log('fetching info for ', props.player.name)
-    props.client.getGames(props.player.name).then(setGames)
-  }
+  //props.player.name === 'larc' && console.log('rendered')
 
   const handleClick = () => {
-    if (!games.length && props.client) fetch()
+    if (!games) props.fetch(props.player.name).then(setGames)
     setExpanded((v) => !v)
   }
 
@@ -33,12 +31,18 @@ const Card = (props: ICardProps) => {
         styles.card_root,
         isExpanded && styles.card_expanded
       )}
+      key={props.player.name}
     >
       <div className={styles.head} onClick={() => handleClick()}>
-        {isExpanded ? 'OPENED' : 'CLOSED'}
-        {props.player.place} {props.player.name} {props.player.rank}
+        <div>
+          {props.player.place} {isExpanded ? 'O' : 'C'}
+        </div>
+        <div className={styles.name}>{props.player.name}</div>
+        <div>{props.player.rank}</div>
       </div>
-      <div className={styles.body}>{games.map((v) => JSON.stringify(v))}</div>
+      <div className={classNames(styles.body, isExpanded && styles.opened)}>
+        {games ? games.map((v) => JSON.stringify(v)) : <Loader centered />}
+      </div>
     </div>
   )
 }
