@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,7 +15,7 @@ function App() {
   const [client, setClient] = useState<KGSClient>(new KGSClient())
 
   return (
-    <div className='App'>
+    <div className='App container'>
       <Router>
         <div>
           <nav>

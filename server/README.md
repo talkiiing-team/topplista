@@ -1,7 +1,12 @@
-# go-peaderboard
+# Backend!
 
 * Start the development process: `npm start`
 * Build: `npm run build`
+* Start the production process: `npm run prod`
+* Build and start the production process: `npm run deploy`
+* To provide a login and a password, create a `.env` file and fill it in according to `.env.sample`. **This will work both in production and development.**
+* Port can be provided in `.env` file according to `.env.sample`. By default, port is `3000`.
+* Allowed origin is also set in `.env`. By default, origin is `*` which means *any* origin.
 
 ## API reference
 
@@ -18,7 +23,7 @@ Returns:
 ### GET `/api/leaderboard`
 Just get the TOP-100
 
-Optionally, you can pass `?extended` to get users with two last games. **BUT DON'T DO THIS AS IT IS A FREAKING SLOW BULLSHIT.**
+Optionally, you can pass `?extended` to get users with two their last games.
 
 Returns:
 
@@ -39,6 +44,15 @@ Retuns:
 
 ```json
 {
+  "gameType": "review",
+  "score": "UNFINISHED",
+  "private": true,
+  "komi": -9.5,
+  "size": 19,
+  "handicap": 6,
+  "inPlay": true,
+  "timestamp": "some iso timestamp, but this is not the requested one as KGS creates copy of the game",
+  "revision": 14,
   "players": {
     "white": {
       "name": "name",
@@ -64,4 +78,29 @@ Retuns:
 
 ### GET `/api/games/:name`
 
-Get the first two games of the given user. Optionally, you can pass `?extended` to get all of them.
+Get the first **2** games of the given user. Optionally, you can pass `?extended` to get all of them.
+
+Returns:
+
+```json
+[
+  {
+    "gameType": "ranked",
+    "score": "W+RESIGN",
+    "komi": -9.5,
+    "size": 19,
+    "players": {
+      "white": {
+        "name": "name",
+        "flags": "=",
+        "rank": 39
+      },
+      "black": {
+        "name": "name",
+        "flags": "c=",
+        "rank": 39
+      }
+    }
+  }
+]
+```
