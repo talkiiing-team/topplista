@@ -17,6 +17,7 @@
     "cheerio": "^1.0.0-rc.5",
     "cookie": "^0.4.1",
     "express": "^4.17.1",
+    "express-queue": "0.0.12",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {

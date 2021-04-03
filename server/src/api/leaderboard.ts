@@ -1,15 +1,7 @@
 import { Request, Response } from 'express';
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
-import { Game } from '../kgsClient.d';
 import client from '../kgs/client';
-
-interface Place {
-  place: number;
-  name: string;
-  rank: string;
-  games?: Game[];
-}
 
 const leaderboard = async (req: Request, res: Response<Place[]>) => {
   const extended = 'extended' in req.query;

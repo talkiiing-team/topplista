@@ -2,9 +2,6 @@
 
 import axios, { AxiosInstance } from 'axios';
 import { parse, serialize } from 'cookie';
-import {
-  Game, GameDetailed, KGSRequest, KGSResponse,
-} from '../kgsClient.d';
 import ContentDeliver from './ContentDeliver';
 
 class KGSClient {
@@ -46,7 +43,6 @@ class KGSClient {
         await Promise.all(messages?.filter(({ type }) => type === 'ARCHIVE_JOIN').map(async (joinResult) => {
           if (joinResult) {
             // parse games and put them in gamesDeliver
-            // eslint-disable-next-line no-unused-vars
             const { user: { name }, games, channelId } = joinResult;
             this.gamesDeliver.deliver(name, games);
 
@@ -55,15 +51,12 @@ class KGSClient {
               type: 'UNJOIN_REQUEST',
               channelId,
             });
-            console.log('unjoined');
           }
         }) || []);
 
         // game:
-        messages?.filter(({ type }) => type === 'GAME_JOIN').forEach((game) => {
-          console.log('got GAME_JOIN');
-          const { timestamp } = game.gameSummary;
-          const moves = game.sgfEvents
+        messages?.filter(({ type }) => type === 'GAME_JOIN').forEach(({ sgfEvents, gameSummary }) => {
+          const moves = sgfEvents
             .map(({ type, props, nodeId }: any) => {
               if (type === 'PROP_GROUP_ADDED') {
                 const move = props.find((val: any) => val.name === 'MOVE');
@@ -80,8 +73,17 @@ class KGSClient {
               return undefined;
             })
             .filter((v: any) => v);
-
-          this.gameDeliver.deliver(timestamp, moves);
+          // We hardcore an orderKey here because KGS responds without
+          // an unique ID for the game. So we just keep a single instance
+          // of a game in cache
+          this.gameDeliver.deliver('GAME', {
+            ...gameSummary,
+            players: {
+              white: gameSummary.players.white,
+              black: gameSummary.players.black,
+            },
+            moves,
+          });
         });
       } catch (e) {
         if (e.message === 'TIMEOUT') {
@@ -131,7 +133,6 @@ class KGSClient {
     }
     this.instance.defaults.headers.Cookie = serialize('JSESSIONID', sessionId);
     const { status, data } = await this.instance.get('');
-    console.log(data);
     if (status !== 200) {
       throw new Error(`Unable to login: status code is ${status}`);
     }
@@ -139,7 +140,6 @@ class KGSClient {
 
   private async request(request: KGSRequest) {
     const { data } = await this.instance.post('', request);
-    console.log(data);
   }
 
   public async getGames(name: string): Promise<number> {
@@ -152,8 +152,10 @@ class KGSClient {
   }
 
   public async getGame(timestamp: string): Promise<number> {
-    console.log('attempting to get game', timestamp);
-    const orderId = this.gamesDeliver.order(timestamp);
+    // We hardcore an orderKey here because KGS responds without
+    // an unique ID for the game. So we just keep a single instance
+    // of a game in cache
+    const orderId = this.gameDeliver.order('GAME');
     try {
       await this.request({
         type: 'ROOM_LOAD_GAME',

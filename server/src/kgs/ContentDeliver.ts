@@ -46,7 +46,6 @@ export default class ContentDeliver<key, value> {
    * @param content
    */
   public deliver(orderKey: key, content: any) {
-    console.log('delivered content for', orderKey);
     this.container.set(orderKey, content);
     this.emitter.emit('delivery', orderKey);
   }
