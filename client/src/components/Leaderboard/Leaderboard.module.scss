@@ -1,0 +1,11 @@
+.flexRow {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  & > div:nth-child(2) {
+    text-align: left;
+  }
+}
+
+.heading {
+  font-weight: 700;
+}
