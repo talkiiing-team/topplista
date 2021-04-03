@@ -3,7 +3,8 @@
 * Start the development process: `npm start`
 * Build: `npm run build`
 * Start the production process: `npm run prod`
-* To provide a login and a password, create a `.env` file and fill it in according to `.env.sample`. **This will work both in production and development.** 
+* Build and start the production process: `npm run deploy`
+* To provide a login and a password, create a `.env` file and fill it in according to `.env.sample`. **This will work both in production and development.**
 * Port can be provided in `.env` file according to `.env.sample`. By default, port is `3000`.
 
 ## API reference
