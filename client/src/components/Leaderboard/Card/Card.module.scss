@@ -1,0 +1,14 @@
+.card {
+  &_root {
+  }
+  & > .body {
+    max-height: 0;
+    transition: max-height 0.5s ease-in-out;
+    overflow: hidden;
+  }
+  &_expanded {
+    & > .body {
+      max-height: 100px;
+    }
+  }
+}

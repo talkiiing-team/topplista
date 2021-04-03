@@ -3,6 +3,7 @@ import styles from './Leaderboard.module.scss'
 import classNames from 'classnames'
 import { useHistory } from 'react-router-dom'
 import KGSClient, { IPlace } from '../../core/kgs/client'
+import Card from './Card/Card'
 
 const columns = ['Place', 'Player Name', 'Rank']
 
@@ -31,16 +32,7 @@ const Leaderboard = ({ client }: { client: KGSClient }) => {
           </div>
           <div>
             {topList.map((v, i) => (
-              <div
-                key={i}
-                className={styles.flexRow}
-                onClick={() => seeGames(v.name)}
-              >
-                {Object.entries(v).map(
-                  ([key, value]) =>
-                    key !== 'games' && <div key={value}>{value}</div>
-                )}
-              </div>
+              <Card key={i} player={v} client={client} />
             ))}
           </div>
         </>
