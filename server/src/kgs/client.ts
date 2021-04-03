@@ -2,18 +2,18 @@
 
 import axios, { AxiosInstance } from 'axios';
 import { parse, serialize } from 'cookie';
-import ContentDeliver from './ContentDeliver';
+import ContentDeliverer from './ContentDeliverer';
 
 class KGSClient {
   /**
    * Map username to GameDetailed
    */
-  public readonly gameDeliver = new ContentDeliver<string, GameDetailed>();
+  public readonly gameDeliverer = new ContentDeliverer<string, GameDetailed>();
 
   /**
    * Map username to Game[]
    */
-  public readonly gamesDeliver = new ContentDeliver<string, Game[]>();
+  public readonly gamesDeliverer = new ContentDeliverer<string, Game[]>();
 
   private readonly instance: AxiosInstance;
 
@@ -44,7 +44,7 @@ class KGSClient {
           if (joinResult) {
             // parse games and put them in gamesDeliver
             const { user: { name }, games, channelId } = joinResult;
-            this.gamesDeliver.deliver(name, games);
+            this.gamesDeliverer.deliver(name, games);
 
             // do unjoin
             await this.request({
@@ -76,7 +76,7 @@ class KGSClient {
           // We hardcore an orderKey here because KGS responds without
           // an unique ID for the game. So we just keep a single instance
           // of a game in cache
-          this.gameDeliver.deliver('GAME', {
+          this.gameDeliverer.deliver('GAME', {
             ...gameSummary,
             players: {
               white: gameSummary.players.white,
@@ -143,7 +143,7 @@ class KGSClient {
   }
 
   public async getGames(name: string): Promise<number> {
-    const orderId = this.gamesDeliver.order(name);
+    const orderId = this.gamesDeliverer.order(name);
     await this.request({
       type: 'JOIN_ARCHIVE_REQUEST',
       name,
@@ -155,7 +155,7 @@ class KGSClient {
     // We hardcore an orderKey here because KGS responds without
     // an unique ID for the game. So we just keep a single instance
     // of a game in cache
-    const orderId = this.gameDeliver.order('GAME');
+    const orderId = this.gameDeliverer.order('GAME');
     try {
       await this.request({
         type: 'ROOM_LOAD_GAME',

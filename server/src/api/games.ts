@@ -1,18 +1,17 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import client from '../kgs/client';
 
-const games = async (req: Request, res: Response) => {
+const games = async (req: Request, res: Response, next: NextFunction) => {
   const extended = 'extended' in req.query;
 
   const { name } = req.params;
 
   const id = await client.getGames(name);
 
-  const { gamesDeliver } = client;
-  gamesDeliver.wait(id, (gotName) => {
+  const { gamesDeliverer } = client;
+  gamesDeliverer.wait(id, (gotName) => {
     if (gotName === name) {
-      console.log('got name equals name');
-      const data = gamesDeliver.receive(id);
+      const data = gamesDeliverer.receive(id);
       if (data) {
         data.sort(({ timestamp: date1 }, { timestamp: date2 }) => (date1 < date2 ? 1 : -1));
 
@@ -21,7 +20,9 @@ const games = async (req: Request, res: Response) => {
           return;
         }
         res.json(data.slice(0, 2));
+        return;
       }
+      next(new Error(`Cannot get games of ${name}`));
     }
   });
 };
