@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express';
 import queue from 'express-queue';
 import timeout from 'connect-timeout';
+import cors from 'cors';
 import api from './api';
 
 const app = express();
@@ -10,6 +11,8 @@ app.get('/', (req, res) => {
     hello: 'world',
   });
 });
+
+app.use(cors({ origin: process.env.ORIGIN || '*' }));
 
 // The reason for the queue approach is that KGS responds without an unique ID
 // for the game and we keep just a single instance of the game

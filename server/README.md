@@ -6,6 +6,7 @@
 * Build and start the production process: `npm run deploy`
 * To provide a login and a password, create a `.env` file and fill it in according to `.env.sample`. **This will work both in production and development.**
 * Port can be provided in `.env` file according to `.env.sample`. By default, port is `3000`.
+* Allowed origin is also set in `.env`. By default, origin is `*` which means *any* origin.
 
 ## API reference
 
