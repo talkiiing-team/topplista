@@ -1,0 +1,31 @@
+.header {
+  height: 72px;
+  width: 100%;
+  margin-bottom: 16px;
+  background: #f3969a;
+  position: fixed;
+  top: 0;
+}
+
+.title {
+  font-size: 38px;
+  font-weight: 700;
+  margin: 0 auto;
+  color: #fff;
+  width: fit-content;
+  padding-top: 8px;
+  @media(min-width: 1400px) {
+    margin-left: 16px;
+
+    & .leftSide {
+      width: 50%;
+    }
+  }
+}
+
+.backlink {
+  font-size: 22px;
+  font-weight: 500;
+  margin: 0 auto;
+  color: #fff;
+}

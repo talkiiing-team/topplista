@@ -6,7 +6,7 @@ import KGSClient, { IPlace } from '../../core/kgs/client'
 import Card from './Card/Card'
 import Loader from '../Loader/Loader'
 
-const columns = ['Place', 'Player Name', 'Rank']
+const columns = ['Место', 'Имя игрока', 'Ранг']
 
 const Leaderboard = ({ client }: { client: KGSClient }) => {
   const [topList, setTopList] = useState<IPlace[]>()
@@ -46,6 +46,16 @@ const Leaderboard = ({ client }: { client: KGSClient }) => {
           <Loader centered />
         )}
       </div>
+      {topList ? (
+        <div className={styles.rightSide}>
+          <div className={styles.hint}>
+            <p className={styles.large}>Выбери игрока</p>
+            <p className={styles.little}>и открой игру</p>
+          </div>
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   )
 }

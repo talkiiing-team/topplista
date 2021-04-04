@@ -1,12 +1,10 @@
-$card-default-height: 64px;
-
-.card {
+.pad {
   &_root {
-    background: #fff;
-    border-radius: 24px;
-    min-height: $card-default-height;
-    max-width: 600px;
-    margin: 16px;
+    background: #efefef;
+    border-radius: 16px;
+    height: 62px;
+    max-width: 500px;
+    margin: 8px auto;
     padding: 0 12px;
     display: flex;
     flex-flow: column nowrap;
@@ -15,24 +13,20 @@ $card-default-height: 64px;
     overflow: hidden;
     user-select: none;
     font-size: 18px;
-
-    box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.16);
-
-  }
-  &_expanded {
-    & > .head {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    &:nth-child(1) {
+      margin-top: 16px;
     }
   }
 }
 
 .head {
-  padding: 8px 28px;
+  padding: 0 8px;
   height: 64px;
   border-bottom: 1px solid rgba(0, 0, 0, 0);
   transition: border-bottom-color 0.18s ease-in-out;
   display: grid;
-  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-columns: 4fr 2fr 4fr;
+  color: #a3a3a3;
 
   align-items: center;
   & > div {
@@ -46,12 +40,13 @@ $card-default-height: 64px;
       text-align: right;
     }
   }
-
-
   cursor: pointer;
 }
 
 .name {
-  color: #222;
+  & span {
+    color: #2e2e2e;
+    font-weight: 400;
+  }
 }
 

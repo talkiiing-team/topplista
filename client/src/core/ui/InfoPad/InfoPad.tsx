@@ -31,7 +31,9 @@ const InfoPad = (props: ICardProps) => {
   return (
     <div className={classNames(styles.pad_root)} key={date}>
       <div className={styles.head} onClick={() => props.onClick(date)}>
-        <div className={styles.name}>{opponent.name}</div>
+        <div className={styles.name}>
+          vs <span>{opponent.name || 'no-opponent'}</span>
+        </div>
         <div className={styles.status}>{gameResult}</div>
         <div className={styles.date}>{dt.toFormat('MM/dd/yyyy')}</div>
       </div>

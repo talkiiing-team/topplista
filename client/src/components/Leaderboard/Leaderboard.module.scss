@@ -4,7 +4,7 @@
   align-content: space-between;
   align-items: center;
   padding: 0 36px;
-  max-width: 600px;
+  max-width: 100%;
   margin: 16px;
   & div {
     flex: 0 1 auto;
@@ -18,16 +18,61 @@
 .container {
   margin: 0 auto;
   display: flex;
+  & .leftSide {
+    width: 100%;
+  }
+  & .rightSide {
+    display: none;
+    width: 0;
+    height: 200px;
+    position: sticky;
+    top: 86px;
+    padding: 16px;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: flex-start;
+  }
 
-  @media(min-width: 1400px) {
+  @media (min-width: 600px) and (max-width: 1399px) {
+    width: 600px;
+
+    & .leftSide {
+      width: 100%;
+    }
+    & .rightSide {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1400px) {
     justify-content: space-between;
-    align-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    align-content: flex-start;
 
     width: 1400px;
 
     & .leftSide {
       width: 50%;
     }
+    & .rightSide {
+      display: flex;
+      width: 50%;
+      height: calc(100vh - 110px);
+    }
+  }
+}
+
+.hint {
+  & .large {
+    font-size: 72px;
+    line-height: 80px;
+    font-weight: 700;
+    color: #2e2e2e;
+    white-space: pre-wrap;
+  }
+  & .little {
+    font-size: 36px;
+    line-height: 40px;
+    color: #a3a3a3;
   }
 }
