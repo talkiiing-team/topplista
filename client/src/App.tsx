@@ -11,6 +11,7 @@ import Leaderboard from './components/Leaderboard/Leaderboard'
 import KGSClient from './core/kgs/client'
 import Games from './components/Games/Games'
 import Game from './components/Game/Game'
+import Header from './core/ui/header/Header'
 
 function App() {
   const [client, setClient] = useState<KGSClient>(new KGSClient())
@@ -18,20 +19,9 @@ function App() {
   return (
     <div className={styles.app}>
       <Router>
-        <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to='/board'>Leaderboard</Link>
-              </li>
-              <li>
-                <Link to='/game'>Game</Link>
-              </li>
-            </ul>
-          </nav>
+        <div className={styles.globalContainer}>
+          <Header />
 
-          {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
           <Switch>
             <Route path='/board'>
               <Leaderboard client={client} />

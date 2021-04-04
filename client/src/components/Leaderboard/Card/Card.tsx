@@ -5,6 +5,7 @@ import { IPlace } from '../../../core/kgs/client'
 import classNames from 'classnames'
 import Loader from '../../Loader/Loader'
 import InfoPad from '../../../core/ui/InfoPad/InfoPad'
+import { useHistory } from 'react-router-dom'
 
 export interface ICardProps {
   player: IPlace
@@ -14,7 +15,7 @@ export interface ICardProps {
 const Card = (props: ICardProps) => {
   const [games, setGames] = useState<Game[]>()
   const [isExpanded, setExpanded] = useState(false)
-
+  const history = useHistory()
   const { name, rank, place } = props.player
 
   useEffect(() => {
@@ -26,6 +27,10 @@ const Card = (props: ICardProps) => {
     setExpanded(!isExpanded)
   }
 
+  const openGame = (date: string) => {
+    history.push('/game/' + encodeURI(date))
+  }
+
   return (
     <div
       className={classNames(
@@ -35,9 +40,7 @@ const Card = (props: ICardProps) => {
       key={place}
     >
       <div className={styles.head} onClick={() => handleClick()}>
-        <div>
-          {place} {isExpanded ? 'O' : 'C'}
-        </div>
+        <div>{place}</div>
         <div className={styles.name}>{name}</div>
         <div>{rank}</div>
       </div>
@@ -46,13 +49,13 @@ const Card = (props: ICardProps) => {
           games.map((v) => (
             <InfoPad
               key={v.timestamp}
-              onClick={(date) => console.log(date)}
+              onClick={(date) => openGame(date)}
               model={v}
               player={name}
             />
           ))
         ) : isExpanded ? (
-          <Loader centered label={'Ищем...'} />
+          <Loader centered label timeout={20} className={styles.body_loader} />
         ) : (
           <></>
         )}

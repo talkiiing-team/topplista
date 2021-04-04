@@ -18,7 +18,7 @@ export default class KGSClient {
   }
 
   private extractData(dataStore: AxiosResponse) {
-    return dataStore.data
+    return dataStore.data || []
   }
 
   private async request(query: string) {
