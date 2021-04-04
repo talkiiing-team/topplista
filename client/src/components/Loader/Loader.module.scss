@@ -1,0 +1,67 @@
+$anchor-height-for-land: 480px; // max, so might be pretty
+$anchor-width-for-port: 393px; // min, so -1 to target
+
+.centered {
+  width: fit-content;
+  position: relative;
+  margin-left: 50%;
+  margin-top: 16px;
+  transform: translate(-50%, 0);
+}
+
+.labelled {
+  //transform: translate(-10px, 0);
+}
+
+.loader {
+  flex: 0 1 auto;
+  width: 200px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  background-color: #fff;
+  user-select: none;
+  p {
+    flex: 0 1 auto;
+    font-family: 'Roboto', monospace;
+    font-weight: 300;
+    color: #333333;
+    font-size: 20px;
+  }
+
+  &_ripple {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+
+    & div {
+      position: absolute;
+      border: 4px solid #000;
+      opacity: 1;
+      border-radius: 50%;
+      animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+    & div:nth-child(2) {
+      animation-delay: -0.5s;
+    }
+    @keyframes lds-ripple {
+      0% {
+        top: 36px;
+        left: 36px;
+        width: 0;
+        height: 0;
+        opacity: 1;
+      }
+      100% {
+        top: 0px;
+        left: 0px;
+        width: 72px;
+        height: 72px;
+        opacity: 0;
+      }
+    }
+  }
+}

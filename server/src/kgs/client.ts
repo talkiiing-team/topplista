@@ -34,6 +34,7 @@ class KGSClient {
     if (callback) {
       callback();
     }
+    console.log('[KGS] Start long polling...');
     // eslint-disable-next-line no-constant-condition
     while (true) {
       try {
@@ -90,6 +91,8 @@ class KGSClient {
           // eslint-disable-next-line no-continue
           continue;
         } else {
+          console.log('[KGS] Stop long polling due to error below:');
+          console.error(e);
           break;
         }
       }
@@ -139,15 +142,30 @@ class KGSClient {
   }
 
   private async request(request: KGSRequest) {
-    const { data } = await this.instance.post('', request);
+    try {
+      await this.instance.post('', request);
+    } catch (e) {
+      // For some reason 404 means logout lmao
+      if (e?.response?.status === 404) {
+        await this.signIn();
+        await this.request(request);
+        return;
+      }
+      throw e;
+    }
   }
 
   public async getGames(name: string): Promise<number> {
     const orderId = this.gamesDeliverer.order(name);
-    await this.request({
-      type: 'JOIN_ARCHIVE_REQUEST',
-      name,
-    });
+    try {
+      await this.request({
+        type: 'JOIN_ARCHIVE_REQUEST',
+        name,
+      });
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
     return orderId;
   }
 
@@ -163,7 +181,10 @@ class KGSClient {
         private: true,
         channelId: 22,
       });
-    } catch (e) { console.error(e.response); }
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
     return orderId;
   }
 }

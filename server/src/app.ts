@@ -1,10 +1,15 @@
 import express, { Request, Response, NextFunction } from 'express';
-import queue from 'express-queue';
 import timeout from 'connect-timeout';
 import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
 import api from './api';
 
 const app = express();
+
+app.use(helmet());
+app.use(morgan('tiny'));
+app.use(cors({ origin: process.env.ORIGIN || '*' }));
 
 app.get('/', (req, res) => {
   res.json({
@@ -12,15 +17,14 @@ app.get('/', (req, res) => {
   });
 });
 
-app.use(cors({ origin: process.env.ORIGIN || '*' }));
-
-// The reason for the queue approach is that KGS responds without an unique ID
-// for the game and we keep just a single instance of the game
-app.use(queue({ activeLimit: 1, queuedLimit: -1 }));
-
 // We also have to use timeout, because KGS does not return errors
 // for example when user or game is not found
-app.use(timeout('20s'));
+app.use(timeout('20s', { respond: true }));
+
+// halt-on-timed-out middleware
+app.use((req, res, next) => {
+  if (!req.timedout) next();
+});
 
 app.use('/api', api);
 
@@ -34,7 +38,7 @@ app.use((req, res, next) => {
 // error handler middleware
 // eslint-disable-next-line no-unused-vars
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  res.status(res.statusCode || 500);
+  res.status(err.message === 'Response timeout' ? 408 : (res.statusCode || 500));
   res.json({
     message: err.message,
     stack: process.env.NODE_ENV !== 'production' && err.stack,

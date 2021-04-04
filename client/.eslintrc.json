@@ -22,7 +22,7 @@
     ],
     "rules": {
         "indent": [
-            "error",
+            1,
             2
         ],
         "linebreak-style": [
@@ -34,7 +34,7 @@
             "single"
         ],
         "semi": [
-            "error",
+            1,
             "never"
         ],
         "object-curly-spacing": [

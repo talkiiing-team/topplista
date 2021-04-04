@@ -1,11 +1,33 @@
 .flexRow {
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  & > div:nth-child(2) {
-    text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-content: space-between;
+  align-items: center;
+  padding: 0 36px;
+  max-width: 600px;
+  margin: 16px;
+  & div {
+    flex: 0 1 auto;
   }
 }
 
 .heading {
   font-weight: 700;
+}
+
+.container {
+  margin: 0 auto;
+  display: flex;
+
+  @media(min-width: 1400px) {
+    justify-content: space-between;
+    align-content: space-between;
+    align-items: center;
+
+    width: 1400px;
+
+    & .leftSide {
+      width: 50%;
+    }
+  }
 }

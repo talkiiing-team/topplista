@@ -1,0 +1,66 @@
+$card-default-height: 64px;
+
+.card {
+  &_root {
+    background: #fff;
+    border-radius: 24px;
+    min-height: $card-default-height;
+    max-width: 600px;
+    margin: 16px;
+    padding: 0 12px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-content: center;
+    overflow: hidden;
+    user-select: none;
+    font-size: 18px;
+
+    box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.16);
+
+  }
+  &_expanded {
+    & > .head {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+.head {
+  padding: 8px 28px;
+  height: 64px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0);
+  transition: border-bottom-color 0.18s ease-in-out;
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+
+  align-items: center;
+  & > div {
+    &:nth-child(1) {
+      text-align: left;
+    }
+    &:nth-child(2) {
+      text-align: center;
+    }
+    &:nth-child(3) {
+      text-align: right;
+    }
+  }
+
+
+  cursor: pointer;
+}
+
+.name {
+  color: #222;
+}
+
+.body {
+  height: 0;
+  overflow: hidden;
+  transition: height 0.2s ease-in-out;
+}
+
+.body.opened {
+  height: 100px;
+}
