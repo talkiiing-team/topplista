@@ -10,6 +10,7 @@ export interface ICardProps {
   onClick: (gameId: string) => void
   model: Game
   player: string
+  className?: string
 }
 
 const InfoPad = (props: ICardProps) => {
@@ -29,7 +30,7 @@ const InfoPad = (props: ICardProps) => {
   }, [])
 
   return (
-    <div className={classNames(styles.pad_root)} key={date}>
+    <div className={classNames(styles.pad_root, props.className)} key={date}>
       <div className={styles.head} onClick={() => props.onClick(date)}>
         <div className={styles.name}>
           vs <span>{opponent.name || 'no-opponent'}</span>

@@ -52,6 +52,7 @@ const Card = (props: ICardProps) => {
               onClick={(date) => openGame(date)}
               model={v}
               player={name}
+              className={styles.pad}
             />
           ))
         ) : isExpanded ? (

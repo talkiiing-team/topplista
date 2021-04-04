@@ -30,7 +30,7 @@ function App() {
               <Games client={client} />
             </Route>
             <Route path='/game/:gameId'>
-              <Game />
+              <Game client={client} />
             </Route>
             <Route path='/'>
               <Redirect to={'/board'} />

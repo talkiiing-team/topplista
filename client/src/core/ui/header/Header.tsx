@@ -14,12 +14,13 @@ const Header = () => {
 
   return (
     <div className={classNames(styles.header)}>
+      <div
+        className={classNames(styles.backlink, showBack && styles.active)}
+        onClick={() => history.push('/board')}
+      >
+        <i className={'la la-arrow-left'} />
+      </div>
       <div className={styles.title}>Ko-Watcher</div>
-      {showBack && (
-        <div className={styles.backlink} onClick={() => history.goBack()}>
-          Fuck, NO! Go back!
-        </div>
-      )}
     </div>
   )
 }

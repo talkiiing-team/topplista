@@ -1,0 +1,75 @@
+/*$cell-size-9: 8.6vmin;
+$cell-size-13: 6.2vmin;
+$cell-size-19: 4.42vmin;*/
+
+$cell-size-9: calc(77.4vmin / 9);
+$cell-size-13: calc(80.263vmin / 13);
+$cell-size-19: calc(83.8vmin / 19);
+
+.game_container {
+  background-color: rgba(255, 255, 255, 0.8);
+  background-image: url('../../../core/assets/field.svg');
+  background-origin: content-box;
+  width: fit-content;
+  height: fit-content;
+  box-shadow: 0px 3px 15px 0 rgba(0, 0, 0, 0.15);
+  margin: 0 auto;
+  margin-bottom: 16px;
+  &.s9 {
+    padding: calc(#{$cell-size-9} / 2);
+    background-size: $cell-size-9;
+  }
+  &.s13 {
+    padding: calc(#{$cell-size-13} / 2);
+    background-size: $cell-size-13;
+  }
+  &.s19 {
+    padding: calc(#{$cell-size-19} / 2);
+    background-size: $cell-size-19;
+  }
+  &.s9 > .grid > .row > .cell {
+    height: $cell-size-9;
+    width: $cell-size-9;
+  }
+  &.s13 > .grid > .row > .cell {
+    height: $cell-size-13;
+    width: $cell-size-13;
+  }
+  &.s19 > .grid > .row > .cell {
+    height: $cell-size-19;
+    width: $cell-size-19;
+  }
+}
+
+.grid {
+  //margin: 24px 24px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  width: fit-content;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  flex: 0 1 auto;
+}
+
+.cell {
+  flex: 0 1 auto;
+  border-radius: 50%;
+  &.black {
+    background-color: #1b1e21;
+  }
+  &.white {
+    background-color: #3ac18c;
+  }
+  &.empty {
+    //background-color: #a3a3a3;
+  }
+  &.select {
+    background-color: #e83e8c;
+  }
+}
