@@ -28,22 +28,24 @@ const Leaderboard = ({ client }: { client: KGSClient }) => {
 
   return (
     <div className={styles.container}>
-      {topList ? (
-        <>
-          <div className={classNames(styles.flexRow, styles.heading)}>
-            {columns.map((v) => (
-              <div key={v}>{v}</div>
-            ))}
-          </div>
-          <div>
-            {topList.map((v, i) => (
-              <Card key={i} player={v} fetch={fetchGames} />
-            ))}
-          </div>
-        </>
-      ) : (
-        <Loader centered />
-      )}
+      <div className={styles.leftSide}>
+        {topList ? (
+          <>
+            <div className={classNames(styles.flexRow, styles.heading)}>
+              {columns.map((v) => (
+                <div key={v}>{v}</div>
+              ))}
+            </div>
+            <div>
+              {topList.slice(0, 100).map((v, i) => (
+                <Card key={i} player={v} fetch={fetchGames} />
+              ))}
+            </div>
+          </>
+        ) : (
+          <Loader centered />
+        )}
+      </div>
     </div>
   )
 }

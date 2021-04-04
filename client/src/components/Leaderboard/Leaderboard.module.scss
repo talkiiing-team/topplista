@@ -4,9 +4,6 @@
   align-content: space-between;
   align-items: center;
   padding: 0 36px;
-  & > div:nth-child(2) {
-    text-align: left;
-  }
   max-width: 600px;
   margin: 16px;
   & div {
@@ -19,5 +16,18 @@
 }
 
 .container {
+  margin: 0 auto;
+  display: flex;
 
+  @media(min-width: 1400px) {
+    justify-content: space-between;
+    align-content: space-between;
+    align-items: center;
+
+    width: 1400px;
+
+    & .leftSide {
+      width: 50%;
+    }
+  }
 }

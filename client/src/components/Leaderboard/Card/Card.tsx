@@ -4,6 +4,7 @@ import { Game } from '../../../core/kgs/kgsClient'
 import { IPlace } from '../../../core/kgs/client'
 import classNames from 'classnames'
 import Loader from '../../Loader/Loader'
+import InfoPad from '../../../core/ui/InfoPad/InfoPad'
 
 export interface ICardProps {
   player: IPlace
@@ -14,15 +15,15 @@ const Card = (props: ICardProps) => {
   const [games, setGames] = useState<Game[]>()
   const [isExpanded, setExpanded] = useState(false)
 
-  useEffect(() => {
-    if (games) props.fetch(props.player.name).then(setGames)
-  }, [props.player.name])
+  const { name, rank, place } = props.player
 
-  //props.player.name === 'larc' && console.log('rendered')
+  useEffect(() => {
+    if (games) props.fetch(name).then(setGames)
+  }, [name])
 
   const handleClick = () => {
-    if (!games) props.fetch(props.player.name).then(setGames)
-    setExpanded((v) => !v)
+    if (!games) props.fetch(name).then(setGames)
+    setExpanded(!isExpanded)
   }
 
   return (
@@ -31,17 +32,30 @@ const Card = (props: ICardProps) => {
         styles.card_root,
         isExpanded && styles.card_expanded
       )}
-      key={props.player.name}
+      key={place}
     >
       <div className={styles.head} onClick={() => handleClick()}>
         <div>
-          {props.player.place} {isExpanded ? 'O' : 'C'}
+          {place} {isExpanded ? 'O' : 'C'}
         </div>
-        <div className={styles.name}>{props.player.name}</div>
-        <div>{props.player.rank}</div>
+        <div className={styles.name}>{name}</div>
+        <div>{rank}</div>
       </div>
       <div className={classNames(styles.body, isExpanded && styles.opened)}>
-        {games ? games.map((v) => JSON.stringify(v)) : <Loader centered />}
+        {games ? (
+          games.map((v) => (
+            <InfoPad
+              key={v.timestamp}
+              onClick={(date) => console.log(date)}
+              model={v}
+              player={name}
+            />
+          ))
+        ) : isExpanded ? (
+          <Loader centered label={'Ищем...'} />
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   )
