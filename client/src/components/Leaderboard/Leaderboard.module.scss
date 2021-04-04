@@ -24,13 +24,13 @@
   & .rightSide {
     display: none;
     width: 0;
-    height: 200px;
     position: sticky;
-    top: 86px;
     padding: 16px;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: flex-start;
+    height: calc(100vh - 110px);
+    top: calc(-1 * (100vh - 110px) / 2 + 210px);
   }
 
   @media (min-width: 600px) and (max-width: 1399px) {
@@ -57,7 +57,6 @@
     & .rightSide {
       display: flex;
       width: 50%;
-      height: calc(100vh - 110px);
     }
   }
 }
@@ -74,5 +73,10 @@
     font-size: 36px;
     line-height: 40px;
     color: #a3a3a3;
+  }
+  & .arrow {
+    font-size: 68px;
+    color: #2e2e2e;
+    line-height: 72px;
   }
 }

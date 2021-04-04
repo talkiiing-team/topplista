@@ -43,12 +43,13 @@ const Leaderboard = ({ client }: { client: KGSClient }) => {
             </div>
           </>
         ) : (
-          <Loader centered />
+          <Loader centered label />
         )}
       </div>
       {topList ? (
         <div className={styles.rightSide}>
           <div className={styles.hint}>
+            <i className={classNames('la la-arrow-left', styles.arrow)} />
             <p className={styles.large}>Выбери игрока</p>
             <p className={styles.little}>и открой игру</p>
           </div>

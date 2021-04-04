@@ -5,16 +5,24 @@
   background: #f3969a;
   position: fixed;
   top: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  align-content: flex-start;
+  justify-content: flex-start;
 }
 
 .title {
+  flex: 1 1 auto;
   font-size: 38px;
+  line-height: 40px;
   font-weight: 700;
   margin: 0 auto;
   color: #fff;
   width: fit-content;
-  padding-top: 8px;
-  @media(min-width: 1400px) {
+  height: fit-content;
+  margin-left: 32px;
+  @media (min-width: 1400px) {
     margin-left: 16px;
 
     & .leftSide {
@@ -24,8 +32,19 @@
 }
 
 .backlink {
-  font-size: 22px;
+  flex: 0 1 auto;
+  font-size: 40px;
+  line-height: 40px;
   font-weight: 500;
+  height: fit-content;
   margin: 0 auto;
+  margin-left: 16px;
   color: #fff;
+  max-width: 0;
+  overflow: hidden;
+  transition: max-width 0.2s ease-in-out;
+  &.active {
+    max-width: fit-content;
+  }
+  cursor: pointer;
 }

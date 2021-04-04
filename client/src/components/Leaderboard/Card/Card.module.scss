@@ -17,7 +17,6 @@ $card-default-height: 64px;
     font-size: 18px;
 
     box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.16);
-
   }
   &_expanded {
     & > .head {
@@ -30,7 +29,7 @@ $card-default-height: 64px;
   padding: 8px 28px;
   height: 64px;
   border-bottom: 1px solid rgba(0, 0, 0, 0);
-  transition: border-bottom-color 0.18s ease-in-out;
+  transition: border-bottom-color 0.18s ease-in;
   display: grid;
   grid-template-columns: 1fr 5fr 1fr;
 
@@ -47,7 +46,6 @@ $card-default-height: 64px;
     }
   }
 
-
   cursor: pointer;
 }
 
@@ -60,10 +58,31 @@ $card-default-height: 64px;
   overflow: hidden;
   transition: height 0.2s ease-in-out;
   &_loader {
-    margin-top: 32px;
+    margin-top: 40px;
+  }
+  & .pad {
+    opacity: 0;
+    animation: show-pad 0.2s forwards;
+    &:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
   }
 }
 
 .body.opened {
   height: 164px;
+}
+
+@keyframes show-pad {
+  0% {
+    opacity: 0;
+    transform: translate(0, 6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
 }
