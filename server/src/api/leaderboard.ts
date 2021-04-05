@@ -44,6 +44,7 @@ const leaderboard = async (req: Request, res: Response<Place[]>, next: NextFunct
     }
     res.json(data);
   } catch (e) {
+    res.status(500);
     next(new Error('Cannot get leaderboard'));
   }
 };
