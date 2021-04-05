@@ -1,23 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import styles from './GameGrid.module.scss'
-import { GameDetailed } from '../../../core/kgs/kgsClient'
-import { Board, CellStates } from '../Game'
+import { Board } from '../../../core/game/types.d'
 import classNames from 'classnames'
 
-export interface IGridDetails {
+interface IGridProps {
   board: Board
-  copy: Board
   onClick: (x: number, y: number) => void
 }
 
-function GameGrid({ board, copy, onClick }: IGridDetails) {
-  const [loading, setLoading] = useState(true)
-
+const GameGrid: React.FC<IGridProps> = ({ board, onClick }: IGridProps) => {
   const [size, setSize] = useState(board.length)
-
-  useEffect(() => {
-    setLoading(true)
-  }, [])
 
   useEffect(() => {
     setSize(board.length)
@@ -41,13 +33,10 @@ function GameGrid({ board, copy, onClick }: IGridDetails) {
                 key={colindex}
                 className={classNames(
                   styles.cell,
-                  styles[cell.state],
-                  copy[rowindex][colindex].state === CellStates.SELECT &&
-                    styles.select
+                  styles[cell || 'empty'],
                 )}
                 onClick={() => onClick(colindex, rowindex)}
               >
-                {/*rowindex * size + colindex + 1*/}
               </div>
             ))}
           </div>

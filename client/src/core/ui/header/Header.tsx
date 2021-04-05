@@ -3,7 +3,7 @@ import styles from './Header.module.scss'
 import classNames from 'classnames'
 import { useHistory } from 'react-router-dom'
 
-const Header = () => {
+const Header: React.FC = () => {
   const history = useHistory()
   const [showBack, setShowBack] = useState(false)
 

@@ -1,7 +1,7 @@
-import { Game } from '../kgs/kgsClient'
+import { Game, PlayerInfo } from '../kgs/types'
 import getPlayers from './getPlayers'
 
-const getOpponent = (game: Game, player: string) => {
+const getOpponent = (game: Game, player: string): PlayerInfo => {
   return getPlayers(game).filter((v) => v.name !== player)[0]
 }
 

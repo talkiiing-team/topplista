@@ -2,13 +2,6 @@ import React, { useEffect, useState } from 'react'
 import styles from './Loader.module.scss'
 import classNames from 'classnames'
 
-interface IProps {
-  centered?: boolean
-  label?: boolean
-  timeout?: number
-  className?: string
-}
-
 const statuses = [
   'Ищем...',
   'Ищем глубже...',
@@ -16,7 +9,14 @@ const statuses = [
   'Кажется, ничего не найдено!',
 ]
 
-const Loader = (props: IProps) => {
+interface ILoaderProps {
+  centered?: boolean
+  label?: boolean
+  timeout?: number
+  className?: string
+}
+
+const Loader: React.FC<ILoaderProps> = (props: ILoaderProps) => {
   const [time, setTime] = useState(Math.min(props.timeout || -1, 25))
   const [label, setLabel] = useState<number>(0)
 
