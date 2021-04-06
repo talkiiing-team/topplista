@@ -6,6 +6,7 @@ import { GameDetailed, Move } from '../../core/kgs/types'
 import GameGrid from './GameGrid/GameGrid'
 import Controller, { ControlEvents } from './Controller/Controller'
 import GoGame from '../../core/game/GoGame'
+import GameStats from './GameStats/GameStats'
 
 interface IControllerProps {
   client?: KGSClient
@@ -39,9 +40,7 @@ const Game: React.FC<IControllerProps> = ({ client }: IControllerProps) => {
         for (let i = previousMoveId + 1; i < currentMoveId; i++) {
           const { location, player } = moves[i]
           console.log(player)
-          if (
-            moves[previousMoveId]?.player === player
-          ) {
+          if (moves[previousMoveId]?.player === player) {
             // skip
             game.applyMove()
           }
@@ -52,9 +51,7 @@ const Game: React.FC<IControllerProps> = ({ client }: IControllerProps) => {
           const newGame = new GoGame(details.size)
           for (let i = 0; i < currentMoveId; i++) {
             const { location, player } = moves[i]
-            if (
-              moves[i-1]?.player === player
-            ) {
+            if (moves[i - 1]?.player === player) {
               // skip
               newGame.applyMove()
             }
@@ -63,7 +60,7 @@ const Game: React.FC<IControllerProps> = ({ client }: IControllerProps) => {
           setGame(newGame)
         }
       }
-      setPreviousMoveId(currentMoveId-1)
+      setPreviousMoveId(currentMoveId - 1)
     }
   }, [currentMoveId])
 
@@ -94,6 +91,10 @@ const Game: React.FC<IControllerProps> = ({ client }: IControllerProps) => {
     <div className={styles.container}>
       {game && <GameGrid board={game.board} onClick={handleClick} />}
       <div className={styles.sideMenu}>
+        <GameStats
+          state={{ turn: game?.currentPlayer }}
+          params={{ players: details?.players, timestamp: gameId }}
+        />
         <Controller onControl={(type: ControlEvents) => handleControl(type)} />
       </div>
     </div>
