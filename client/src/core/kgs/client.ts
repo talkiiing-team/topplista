@@ -11,8 +11,8 @@ export default class KGSClient {
 
   constructor() {
     this.instance = axios.create({
-      // baseURL: 'https://walfz.cloud.nstu.ru/kgs/api/',
-      baseURL: 'http://localhost:8080/api/',
+      baseURL: 'https://walfz.cloud.nstu.ru/kgs/api/',
+      // baseURL: 'http://localhost:8080/api/',
     })
   }
 
