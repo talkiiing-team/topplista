@@ -1,0 +1,53 @@
+.container {
+  flex: 0 1 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: flex-start;
+  margin: 8px 16px;
+}
+
+.general {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+  align-items: center;
+  & > div {
+    &:nth-child(1) {
+      text-align: left;
+    }
+    &:nth-child(2) {
+      text-align: center;
+    }
+    &:nth-child(3) {
+      text-align: right;
+    }
+  }
+}
+
+.turn {
+  width: 26px;
+  height: 26px;
+  border-radius: 16px;
+
+  &.mini {
+    width: 18px;
+    height: 18px;
+    border-radius: 9px;
+  }
+
+  &.b {
+    background-color: black;
+  }
+  &.w {
+    background-color: white;
+  }
+}
+
+.player {
+  &.white p {
+    padding: 4px;
+  }
+
+  &.black p {
+    padding: 4px;
+  }
+}

@@ -62,6 +62,9 @@
 }
 
 .hint {
+  & p {
+    margin: 0;
+  }
   & .large {
     font-size: 72px;
     line-height: 80px;
