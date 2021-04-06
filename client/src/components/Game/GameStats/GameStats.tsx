@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './GameStats.module.scss'
 import { PlayerInfo } from '../../../core/kgs/types'
 import classNames from 'classnames'
+import { DateTime } from 'luxon'
 
 export enum Players {
   WHITE = 'white',
@@ -35,6 +36,7 @@ export interface IGameSetup {
     white: PlayerInfo
     black: PlayerInfo
   }
+  timestamp?: string
 }
 
 interface IGameStatsProps {
@@ -46,8 +48,17 @@ const GameStats: React.FC<IGameStatsProps> = ({
   state,
   params,
 }: IGameStatsProps) => {
+  const [timeString, setTimeString] = useState<string>('')
+
+  useEffect(() => {
+    if (params.timestamp) {
+      setTimeString(DateTime.fromISO(params.timestamp).toFormat('dd.MM.yyyy hh:mm'))
+    }
+  }, [params.timestamp])
+
   return (
     <div className={styles.container}>
+      {timeString ? <div className={styles.time}>{timeString}</div> : <></>}
       <div className={styles.general}>
         {params.players ? (
           <>

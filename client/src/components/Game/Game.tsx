@@ -66,20 +66,20 @@ const Game: React.FC<IControllerProps> = ({ client }: IControllerProps) => {
 
   const handleControl = (type: ControlEvents) => {
     switch (type) {
-      case ControlEvents.FIRST_STEP:
-        setCurrentMoveId(0)
-        break
-      case ControlEvents.LAST_STEP:
-        setCurrentMoveId(moves.length)
-        break
-      case ControlEvents.NEXT_STEP:
-        setCurrentMoveId(currentMoveId + 1)
-        break
-      case ControlEvents.PREV_STEP:
-        setCurrentMoveId(currentMoveId - 1)
-        break
-      default:
-        break
+    case ControlEvents.FIRST_STEP:
+      setCurrentMoveId(0)
+      break
+    case ControlEvents.LAST_STEP:
+      setCurrentMoveId(moves.length)
+      break
+    case ControlEvents.NEXT_STEP:
+      setCurrentMoveId(currentMoveId + 1)
+      break
+    case ControlEvents.PREV_STEP:
+      setCurrentMoveId(currentMoveId - 1)
+      break
+    default:
+      break
     }
   }
 
@@ -93,7 +93,7 @@ const Game: React.FC<IControllerProps> = ({ client }: IControllerProps) => {
       <div className={styles.sideMenu}>
         <GameStats
           state={{ turn: game?.currentPlayer }}
-          params={{ players: details?.players }}
+          params={{ players: details?.players, timestamp: gameId }}
         />
         <Controller onControl={(type: ControlEvents) => handleControl(type)} />
       </div>
