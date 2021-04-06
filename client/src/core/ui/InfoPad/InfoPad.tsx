@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import styles from './InfoPad.module.scss'
 import classNames from 'classnames'
-import { Game } from '../../kgs/kgsClient'
+import { Game } from '../../kgs/types'
 import { DateTime } from 'luxon'
 import getOpponent from '../../utils/getOpponent'
 import getGameResult from '../../utils/getGameResult'
@@ -13,19 +13,19 @@ export interface ICardProps {
   className?: string
 }
 
-const InfoPad = (props: ICardProps) => {
+const InfoPad: React.FC<ICardProps> = (props: ICardProps) => {
   //const { name, versus, status, date } = props.model
   const { timestamp: date } = props.model
   const dt = DateTime.fromISO(date)
   const opponent = getOpponent(props.model, props.player)
   const gameResult = useMemo(() => {
     switch (getGameResult(props.model)) {
-      case -1:
-        return 'W'
-      case 1:
-        return 'B'
-      default:
-        return '0'
+    case -1:
+      return 'W'
+    case 1:
+      return 'B'
+    default:
+      return '0'
     }
   }, [])
 

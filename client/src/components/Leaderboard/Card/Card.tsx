@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Card.module.scss'
-import { Game } from '../../../core/kgs/kgsClient'
-import { IPlace } from '../../../core/kgs/client'
+import { Game } from '../../../core/kgs/types'
+import { Place } from '../../../core/kgs/types.d'
 import classNames from 'classnames'
 import Loader from '../../Loader/Loader'
 import InfoPad from '../../../core/ui/InfoPad/InfoPad'
 import { useHistory } from 'react-router-dom'
 
-export interface ICardProps {
-  player: IPlace
+interface ICardProps {
+  player: Place
   fetch: (name: string) => Promise<Game[]>
 }
 
-const Card = (props: ICardProps) => {
+const Card: React.FC<ICardProps> = (props: ICardProps) => {
   const [games, setGames] = useState<Game[]>()
   const [isExpanded, setExpanded] = useState(false)
   const history = useHistory()

@@ -1,10 +1,6 @@
 import React from 'react'
 import styles from './Controller.module.scss'
 
-export interface IControllerProps {
-  onControl: (type: ControlEvents) => void
-}
-
 export enum ControlEvents {
   NEXT_STEP = 'next',
   PREV_STEP = 'prev',
@@ -12,7 +8,11 @@ export enum ControlEvents {
   LAST_STEP = 'last',
 }
 
-function Controller(props: IControllerProps) {
+interface IControllerProps {
+  onControl: (type: ControlEvents) => void
+}
+
+const Controller: React.FC<IControllerProps> = (props: IControllerProps) => {
   const handleControl = (type: ControlEvents) => {
     props.onControl(type)
   }

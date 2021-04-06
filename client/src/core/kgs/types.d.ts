@@ -40,6 +40,13 @@ export interface Move {
   nodeId: number
 }
 
+export interface Place {
+  place: number
+  name: string
+  rank: string
+  games?: Game[]
+}
+
 export type GameDetailed = Game & {
   moveNum: number
   global: boolean

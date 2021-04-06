@@ -1,25 +1,25 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Leaderboard.module.scss'
 import classNames from 'classnames'
-import { useHistory } from 'react-router-dom'
-import KGSClient, { IPlace } from '../../core/kgs/client'
+import KGSClient from '../../core/kgs/client'
+import { Place } from '../../core/kgs/types.d'
 import Card from './Card/Card'
 import Loader from '../Loader/Loader'
 
 const columns = ['Место', 'Имя игрока', 'Ранг']
 
-const Leaderboard = ({ client }: { client: KGSClient }) => {
-  const [topList, setTopList] = useState<IPlace[]>()
+interface ILeaderboardProps {
+  client: KGSClient
+}
 
-  const history = useHistory()
+const Leaderboard: React.FC<ILeaderboardProps> = ({
+  client,
+}: ILeaderboardProps) => {
+  const [topList, setTopList] = useState<Place[]>()
 
   useEffect(() => {
     client.getLeaderboard().then(setTopList)
   }, [])
-
-  const seeGames = (name: string) => {
-    history.push(`/games/${encodeURI(name)}`)
-  }
 
   const fetchGames = async (name: string) => {
     console.log('fetching info for ', name)
