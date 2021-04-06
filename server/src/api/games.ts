@@ -12,7 +12,7 @@ const games = async (req: Request, res: Response, next: NextFunction) => {
     const { gamesDeliverer } = client;
     gamesDeliverer.wait(id, (gotName) => {
       if (gotName === name) {
-        const data = gamesDeliverer.receive(id)?.filter(({ gameType }) => gameType !== 'demonstration');
+        const data = gamesDeliverer.receive(id)?.filter(({ gameType }) => gameType === 'ranked');
         if (data) {
           data.sort(({ timestamp: date1 }, { timestamp: date2 }) => (date1 < date2 ? 1 : -1));
 
