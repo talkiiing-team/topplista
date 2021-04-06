@@ -55,10 +55,10 @@ Basically, the client just sends requests to the server, caches them and display
 
 Because KGS returns moves for the game without board states at every moment, we have to calculate them ourselves. So we implemented the [flood-fill](https://en.wikipedia.org/wiki/Flood_fill) algorithm and added some Go game logic to it to remove stones from the board when they are surrounded.
 
-The frontend is deployed to a static CDN called [Vercel](vercel.com) at domain topplista.roamiiing.ru, which is owned and configured by ourselves.
+The frontend is deployed to a static CDN called [Vercel](vercel.com) at domain [topplista.roamiiing.ru](https://topplista.roamiiing.ru), which is owned and configured by ourselves.
 
 ## Demonstration
 
-The project is deployed and can be found [**here**](topplista.roamiiing.ru).
+The project is deployed and can be found [**here**](https://topplista.roamiiing.ru).
 
 ![Demonstration](DEMO.gif)
