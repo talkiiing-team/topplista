@@ -61,4 +61,4 @@ The frontend is deployed to a static CDN called [Vercel](vercel.com) at domain t
 
 The project is deployed and can be found [**here**](topplista.roamiiing.ru).
 
-[Watch a video demo here](yt.be)
+![Demonstration](DEMO.gif)
