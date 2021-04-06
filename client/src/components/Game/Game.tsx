@@ -34,37 +34,37 @@ const Game: React.FC<IControllerProps> = ({ client }: IControllerProps) => {
   }, [details])
 
   useEffect(() => {
-    if (currentMoveId > previousMoveId) {
-      for (let i = previousMoveId + 1; i < currentMoveId; i++) {
-        const { location, player } = moves[i]
-        if (
-          moves[previousMoveId]?.player !== player &&
-          previousMoveId !== currentMoveId
-        ) {
-          game?.applyMove(location)
-        } else {
-          // skip
-          game?.applyMove()
-        }
-      }
-    } else {
-      if (details) {
-        setGame(new GoGame(details.size))
-        for (let i = 0; i < currentMoveId; i++) {
+    if (moves.length > 0 && game) {
+      if (currentMoveId > previousMoveId) {
+        for (let i = previousMoveId + 1; i < currentMoveId; i++) {
           const { location, player } = moves[i]
+          console.log(player)
           if (
-            moves[previousMoveId]?.player !== player &&
-            previousMoveId !== currentMoveId
+            moves[previousMoveId]?.player === player
           ) {
-            game?.applyMove(location)
-          } else {
             // skip
-            game?.applyMove()
+            game.applyMove()
           }
+          game.applyMove(location)
+        }
+      } else {
+        if (details) {
+          const newGame = new GoGame(details.size)
+          for (let i = 0; i < currentMoveId; i++) {
+            const { location, player } = moves[i]
+            if (
+              moves[i-1]?.player === player
+            ) {
+              // skip
+              newGame.applyMove()
+            }
+            newGame.applyMove(location)
+          }
+          setGame(newGame)
         }
       }
+      setPreviousMoveId(currentMoveId-1)
     }
-    setPreviousMoveId(currentMoveId)
   }, [currentMoveId])
 
   const handleControl = (type: ControlEvents) => {
