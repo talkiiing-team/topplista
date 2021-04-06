@@ -1,8 +1,18 @@
 import { NextFunction, Request, Response } from 'express';
 import client from '../kgs/client';
 
+// timestamp to game
+const gameCache = new Map<string, GameDetailed>();
+
 const game = async (req: Request, res: Response, next: NextFunction) => {
   const { timestamp } = req.params;
+
+  const cachedData = gameCache.get(timestamp);
+
+  if (cachedData) {
+    res.json(cachedData);
+    return;
+  }
 
   try {
     const id = await client.getGame(timestamp);
@@ -13,6 +23,7 @@ const game = async (req: Request, res: Response, next: NextFunction) => {
       // responds without an unique ID for the game
       const data = gameDeliverer.receive(id);
       if (data) {
+        gameCache.set(timestamp, data);
         res.json(data);
       } else {
         res.status(500);
